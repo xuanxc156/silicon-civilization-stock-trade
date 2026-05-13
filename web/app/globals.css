@@ -1,0 +1,36 @@
+:root {
+  --bg: #0b0f17;
+  --fg: #e6edf3;
+  --muted: #8b96a8;
+  --accent: #7cf0a0;
+  --danger: #ff6b6b;
+  --card: #131a26;
+  --border: #1f2937;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+  font-family: ui-sans-serif, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+a { color: var(--accent); }
+.container { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+h1 { font-size: 22px; margin: 0 0 16px; }
+h2 { font-size: 16px; margin: 16px 0 8px; color: var(--muted); font-weight: 500; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 500; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px;
+  background: #1c2a3a; color: var(--muted); }
+.badge.buy { background: rgba(124,240,160,.15); color: var(--accent); }
+.badge.sell { background: rgba(255,107,107,.15); color: var(--danger); }
+button { background: var(--accent); color: #062014; border: 0; padding: 8px 14px; border-radius: 6px;
+  font-weight: 600; cursor: pointer; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+input, select { background: #0d1320; color: var(--fg); border: 1px solid var(--border);
+  padding: 6px 8px; border-radius: 6px; font-size: 13px; }
+.kpi { display: flex; flex-direction: column; gap: 4px; padding: 12px 16px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px; min-width: 140px; }
+.kpi .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.kpi .value { font-size: 20px; font-weight: 600; }
+.kpi .value.pos { color: var(--accent); }
+.kpi .value.neg { color: var(--danger); }

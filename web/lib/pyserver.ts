@@ -1,0 +1,60 @@
+// Typed client for the Python akshare sidecar. Adds a thin in-process LRU
+// on top of pyserver's own SQLite cache to dedupe burst calls within a render.
+const BASE = process.env.PYSERVER_URL ?? "http://localhost:8001";
+
+export interface Kline {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface Fundamental {
+  symbol: string;
+  name?: string | null;
+  pe_ttm?: number | null;
+  pb?: number | null;
+  market_cap?: number | null;
+  revenue_yoy?: number | null;
+  profit_yoy?: number | null;
+}
+
+const inflight = new Map<string, Promise<unknown>>();
+
+async function get<T>(path: string, params: Record<string, string>): Promise<T> {
+  const qs = new URLSearchParams(params).toString();
+  const key = `${path}?${qs}`;
+  const existing = inflight.get(key);
+  if (existing) return existing as Promise<T>;
+  const p = (async () => {
+    const r = await fetch(`${BASE}${path}?${qs}`, { cache: "no-store" });
+    if (!r.ok) throw new Error(`pyserver ${path} ${r.status}: ${await r.text()}`);
+    return (await r.json()) as T;
+  })();
+  inflight.set(key, p);
+  try {
+    return await p;
+  } finally {
+    // brief dedupe only — release after settle so cache layer below handles repeats
+    setTimeout(() => inflight.delete(key), 100);
+  }
+}
+
+export function fetchKlines(symbol: string, start = "20230101", end?: string) {
+  const params: Record<string, string> = { symbol, start, adjust: "qfq" };
+  if (end) params.end = end;
+  return get<Kline[]>("/klines", params);
+}
+
+export function fetchFundamental(symbol: string) {
+  return get<Fundamental>("/fundamental", { symbol });
+}
+
+export function fetchSpot(symbol: string) {
+  return get<{ symbol: string; name: string; price: number; change_pct: number }>(
+    "/spot",
+    { symbol },
+  );
+}
