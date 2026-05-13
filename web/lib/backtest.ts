@@ -107,7 +107,7 @@ export async function runBacktest(
           fundamental: s.fundamental,
         };
       });
-      const signals = await scoreSymbols(snapshots, { asOf: date });
+      const signals = await scoreSymbols(snapshots, { asOf: date, mode: "backtest" });
       signalsByDate[date] = signals;
 
       // Sells first to free cash

@@ -49,7 +49,7 @@ Open http://localhost:3000.
 `web/.env.local`:
 ```
 DEEPSEEK_API_KEY=sk-...
-DEEPSEEK_MODEL=deepseek-chat        # v4 pro endpoint
+DEEPSEEK_MODEL=deepseek-v4-pro
 PYSERVER_URL=http://localhost:8001
 ```
 

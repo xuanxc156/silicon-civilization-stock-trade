@@ -1,15 +1,20 @@
-// DeepSeek v4 pro client with aggressive caching.
+// DeepSeek v4 client with aggressive caching.
 //
 // API-frugality strategy:
 //   1. SQLite-cache every (model, messages) tuple for 12h by default.
 //   2. Batch multi-symbol scoring into ONE prompt with JSON-array output.
-//   3. Backtest mode: never set bypassCache — historical bars are deterministic,
+//   3. Stable system prompt sits at messages[0] so DeepSeek's own server-side
+//      KV-cache (free) hits on every rebalance during a backtest.
+//   4. Backtest mode: never set bypassCache — historical bars are deterministic,
 //      so the first run pays the token cost and every subsequent run is free.
+//   5. `DEEPSEEK_MODEL_BACKTEST` overrides the model for backtest sweeps —
+//      default to v4-flash there to halve token spend on large windows.
 import { cached } from "./cache";
 
 const API_KEY = process.env.DEEPSEEK_API_KEY;
 const BASE_URL = process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com";
-const MODEL = process.env.DEEPSEEK_MODEL ?? "deepseek-chat";
+const MODEL = process.env.DEEPSEEK_MODEL ?? "deepseek-v4-pro";
+const BACKTEST_MODEL = process.env.DEEPSEEK_MODEL_BACKTEST ?? "deepseek-v4-flash";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -98,7 +103,7 @@ const STRATEGY_SYSTEM = `你是一名专注于"硅基文明消费股"的中国�
 /** Score a batch of symbols in ONE DeepSeek call (token-efficient). */
 export async function scoreSymbols(
   snapshots: SymbolSnapshot[],
-  opts: { asOf?: string; bypassCache?: boolean } = {},
+  opts: { asOf?: string; bypassCache?: boolean; mode?: "live" | "backtest" } = {},
 ): Promise<Signal[]> {
   if (snapshots.length === 0) return [];
   const userPayload = {
@@ -120,7 +125,12 @@ export async function scoreSymbols(
       { role: "system", content: STRATEGY_SYSTEM },
       { role: "user", content: JSON.stringify(userPayload) },
     ],
-    { responseFormat: "json_object", temperature: 0.2, bypassCache: opts.bypassCache },
+    {
+      model: opts.mode === "backtest" ? BACKTEST_MODEL : MODEL,
+      responseFormat: "json_object",
+      temperature: 0.2,
+      bypassCache: opts.bypassCache,
+    },
   );
 
   try {
