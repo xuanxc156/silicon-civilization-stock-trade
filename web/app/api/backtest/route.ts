@@ -28,24 +28,23 @@ export async function POST(req: NextRequest) {
   const aksEnd = cfg.endDate.replaceAll("-", "");
 
   try {
-    const series: SymbolSeries[] = (
-      await Promise.all(
-        DEFAULT_UNIVERSE.map(async (entry) => {
-          const [klines, fund] = await Promise.all([
-            fetchKlines(entry.symbol, aksStart, aksEnd).catch(() => []),
-            fetchFundamental(entry.symbol).catch(() => undefined),
-          ]);
-          if (klines.length < 20) return null;
-          return {
-            entry,
-            klines,
-            fundamental: fund
-              ? { pe_ttm: fund.pe_ttm, pb: fund.pb, market_cap: fund.market_cap }
-              : undefined,
-          } satisfies SymbolSeries;
-        }),
-      )
-    ).filter((x): x is SymbolSeries => x !== null);
+    const loaded = await Promise.all(
+      DEFAULT_UNIVERSE.map(async (entry): Promise<SymbolSeries | null> => {
+        const [klines, fund] = await Promise.all([
+          fetchKlines(entry.symbol, aksStart, aksEnd).catch(() => []),
+          fetchFundamental(entry.symbol).catch(() => undefined),
+        ]);
+        if (klines.length < 20) return null;
+        return {
+          entry,
+          klines,
+          fundamental: fund
+            ? { pe_ttm: fund.pe_ttm ?? null, pb: fund.pb ?? null, market_cap: fund.market_cap ?? null }
+            : undefined,
+        };
+      }),
+    );
+    const series: SymbolSeries[] = loaded.filter((x): x is SymbolSeries => x !== null);
 
     if (series.length === 0) {
       return NextResponse.json({ error: "no data loaded from pyserver" }, { status: 502 });
