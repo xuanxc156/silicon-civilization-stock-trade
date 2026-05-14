@@ -1,59 +1,103 @@
-# Silicon Civilization Stock Trade
+# 硅基文明消费股交易系统
 
-A trading strategy system focused on **硅基文明消费股**.
+一个聚焦 **硅基文明消费股** 的中国市场交易策略系统。
 
-**Thesis.** "硅基文明消费" is *not* humans buying AI gadgets — it is what a silicon-based AI civilization itself consumes to exist and scale: compute chips, optical interconnect, AI servers, liquid cooling, electricity (green + nuclear), IDC capacity, HBM/memory, semiconductor equipment & materials, high-speed PCB, foundry capacity, cloud. We long the picks-and-shovels feeding the AI substrate.
+## 主题定义
 
-## Architecture
+"硅基文明消费" 并不是指人类购买 AI 产品，而是指假设人工智能形成基于硅基的文明，**它们自身为了存在与扩张所需要消费的东西**：算力芯片、光模块/高速互连、AI 服务器、液冷散热、电力（绿电与核电）、IDC 数据中心、HBM/存储、半导体设备与材料、高速 PCB、晶圆代工、云计算。我们做多这些"喂养"硅基文明的卖铲人。
+
+## 架构
 
 ```
-┌──────────────────────────┐       ┌──────────────────────────┐
-│   Next.js webapp (web/)  │ HTTP  │  Python sidecar (pyserver/) │
-│  - UI: watchlist, klines │ ────► │  - akshare wrapper           │
-│  - Backtest engine (TS)  │       │  - SQLite kline + fundamental│
-│  - DeepSeek strategy LLM │       │    cache (TTL-tiered)        │
-│  - SQLite LLM cache      │       │  - FastAPI                   │
-└──────────────────────────┘       └──────────────────────────┘
+┌──────────────────────────┐       ┌──────────────────────────────┐
+│   Next.js 网站 (web/)     │ HTTP  │  Python 边车 (pyserver/)      │
+│  - 自选/K 线/信号 UI      │ ────► │  - akshare 封装               │
+│  - 回测引擎 (TS)          │       │  - SQLite K 线/基本面缓存     │
+│  - DeepSeek 策略大模型    │       │    (分层 TTL)                 │
+│  - SQLite 大模型回包缓存  │       │  - FastAPI                    │
+└──────────────────────────┘       └──────────────────────────────┘
 ```
 
-### Key design choices for API frugality
+### 节流策略（最小化 API 调用）
 
-| Layer | Cache | TTL |
-|-------|-------|-----|
-| akshare daily klines | SQLite (`pyserver/cache.db`) | until next trading day close |
-| akshare fundamentals (PE/PB/营收) | SQLite | 24h |
-| akshare realtime quote | in-memory LRU | 30s |
-| DeepSeek strategy calls | SQLite keyed by `sha256(prompt+model)` | 12h |
-| Backtest LLM signals | replayed from cache, never re-asked | ∞ |
+| 层 | 缓存位置 | TTL |
+|---|---|---|
+| akshare 日 K | SQLite (`pyserver/cache.db`) | 直到下一个交易日收盘 |
+| akshare 基本面 (PE/PB/市值) | SQLite | 24 小时 |
+| akshare 实时行情 | 内存 LRU | 30 秒 |
+| DeepSeek 策略回包 | SQLite，键为 `sha256(prompt+model)` | 12 小时 |
+| 回测中的大模型信号 | 命中本地缓存后永不重问 | ∞ |
 
-`DeepSeek v4 pro` is invoked **once per (symbol, trading-day)** for live signals, and once per (symbol, backtest bar) but resolved from cache on re-runs. Backtests stream cached signals; live mode batches symbols into a single prompt with multi-symbol JSON output.
+- **批量打分**：每次调仓 DeepSeek 仅调用一次，返回多只股票的 JSON 数组。
+- **服务端 KV 缓存**：稳定的中文系统提示词放在 `messages[0]`，DeepSeek 自带的 prompt cache 会自动命中（参见返回里的 `prompt_cache_hit_tokens`），重复调仓几乎免费。
+- **实盘 vs 回测分模型**：实盘信号默认使用 `deepseek-v4-pro`，回测扫参默认使用 `deepseek-v4-flash`，可通过环境变量覆盖。
 
-## Quickstart
+## 快速开始
 
 ```bash
-# 1. Python sidecar (akshare) — managed by uv
+# 1. Python 边车（akshare）—— 使用 uv 管理依赖
 cd pyserver
 uv sync
 uv run uvicorn main:app --port 8001 --reload
 
-# 2. Next.js webapp
+# 2. Next.js 网站
 cd web
 npm install
-cp env.example.txt .env.local     # add DEEPSEEK_API_KEY
+cp env.example.txt .env.local       # 填入 DEEPSEEK_API_KEY
 npm run dev
 ```
 
-Open http://localhost:3000.
+打开 http://localhost:3000 。
 
-## Configuration
+## 配置
 
-`web/.env.local`:
+`web/.env.local` 示例：
 ```
 DEEPSEEK_API_KEY=sk-...
-DEEPSEEK_MODEL=deepseek-v4-pro
+DEEPSEEK_MODEL=deepseek-v4-pro              # 实盘信号
+DEEPSEEK_MODEL_BACKTEST=deepseek-v4-flash   # 回测降本
+DEEPSEEK_BASE_URL=https://api.deepseek.com
 PYSERVER_URL=http://localhost:8001
 ```
 
-## Default watchlist
+## 默认股票池
 
-See `web/lib/universe.ts` — a curated set of A-share + HK consumer names tied to silicon-civilization themes (AI glasses, AI PC, AI toy/玩具, 机器人, smart appliances). Edit freely in the UI.
+详见 `web/lib/universe.ts` —— 围绕 算力 / 光模块 / AI 服务器 / 液冷 / 电力 / IDC / 存储 / 半导体设备 / AI-PCB / 晶圆代工 / 云 等子主题精选的 A 股 + 港股名单，可在 UI 中自由编辑。
+
+## 目录结构
+
+```
+silicon-civilization-stock-trade/
+├── README.md
+├── pyserver/              # FastAPI + akshare 边车
+│   ├── main.py
+│   ├── pyproject.toml     # uv 管理
+│   └── uv.lock
+└── web/                   # Next.js 15 App Router
+    ├── app/
+    │   ├── page.tsx                  # 首页（按主题展示股票池）
+    │   ├── signals/page.tsx          # 实时信号（服务端渲染）
+    │   ├── backtest/page.tsx         # 回测界面
+    │   └── api/backtest/route.ts     # 回测 API
+    └── lib/
+        ├── universe.ts               # 股票池
+        ├── pyserver.ts               # akshare 边车客户端
+        ├── deepseek.ts               # DeepSeek 客户端 + 策略提示词
+        ├── backtest.ts               # 走向无未来函数的回测引擎
+        └── cache.ts                  # SQLite KV 缓存
+```
+
+## 开发命令
+
+| 目的 | 命令 |
+|---|---|
+| 类型检查 | `cd web && ./node_modules/.bin/tsc --noEmit` |
+| 单元测试 | `cd web && npm test` |
+| 生产构建 | `cd web && npm run build` |
+| Python 依赖升级 | `cd pyserver && uv lock --upgrade` |
+
+## 停止后台进程
+
+```
+lsof -ti:3000,8001 | xargs kill
+```
