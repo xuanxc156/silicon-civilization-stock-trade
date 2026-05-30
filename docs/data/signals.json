@@ -1,395 +1,395 @@
 {
-  "generated_at": "2026-05-28T07:08:57.849Z",
+  "generated_at": "2026-05-30T00:55:27.357Z",
   "fundamentals": [
     {
       "symbol": "688256",
-      "pe_ttm": 215.95,
-      "pb": 71.51,
-      "market_cap": 8752.0582288731
+      "pe_ttm": 302.9337,
+      "pb": 67.2502,
+      "market_cap": 8230.637893899999
     },
     {
       "symbol": "688041",
-      "pe_ttm": 268,
-      "pb": 31.35,
-      "market_cap": 7365.5949765699
+      "pe_ttm": 250.587,
+      "pb": 29.0723,
+      "market_cap": 6831.22964945
     },
     {
       "symbol": "688047",
-      "pe_ttm": -138.09,
-      "pb": 26.25,
-      "market_cap": 629.5299
+      "pe_ttm": null,
+      "pb": 24.375,
+      "market_cap": 584.658
     },
     {
       "symbol": "300474",
-      "pe_ttm": -148.53,
-      "pb": 4.88,
-      "market_cap": 333.2220165848
+      "pe_ttm": null,
+      "pb": 4.4331,
+      "market_cap": 302.43974435
     },
     {
       "symbol": "002049",
-      "pe_ttm": 54.93,
-      "pb": 5.28,
-      "market_cap": 734.5886385551999
+      "pe_ttm": 40.7806,
+      "pb": 4.8387,
+      "market_cap": 673.75525142
     },
     {
       "symbol": "688385",
-      "pe_ttm": 94.61,
-      "pb": 8.93,
-      "market_cap": 561.28229695
+      "pe_ttm": 203.547,
+      "pb": 7.9203,
+      "market_cap": 497.60879893
     },
     {
       "symbol": "300308",
-      "pe_ttm": 57.53,
-      "pb": 38.18,
-      "market_cap": 13195.9436077932
+      "pe_ttm": 86.4994,
+      "pb": 37.4117,
+      "market_cap": 12930.68396059
     },
     {
       "symbol": "300502",
-      "pe_ttm": 64.12,
-      "pb": 34.94,
-      "market_cap": 7130.62704512
+      "pe_ttm": 65.5099,
+      "pb": 34.4723,
+      "market_cap": 7035.51882126
     },
     {
       "symbol": "300394",
-      "pe_ttm": 174.31,
-      "pb": 57.08,
-      "market_cap": 3431.9694920707
+      "pe_ttm": 163.3044,
+      "pb": 58.9927,
+      "market_cap": 3546.7398751100004
     },
     {
       "symbol": "000988",
-      "pe_ttm": 64.98,
-      "pb": 14.2,
-      "market_cap": 1659.3811173621
+      "pe_ttm": 89.8907,
+      "pb": 13.07,
+      "market_cap": 1527.55971247
     },
     {
       "symbol": "002281",
-      "pe_ttm": 175.65,
-      "pb": 16.3,
-      "market_cap": 1685.7909865295999
+      "pe_ttm": 158.7944,
+      "pb": 15.9106,
+      "market_cap": 1645.2151962
     },
     {
       "symbol": "603083",
-      "pe_ttm": 150.49,
-      "pb": 9.54,
-      "market_cap": 712.2832233853999
+      "pe_ttm": 209.0455,
+      "pb": 9.8133,
+      "market_cap": 732.45482472
     },
     {
       "symbol": "301205",
-      "pe_ttm": 3118.13,
-      "pb": 23.33,
-      "market_cap": 379.890432
+      "pe_ttm": 468.9682,
+      "pb": 25.1846,
+      "market_cap": 410.0169888
     },
     {
       "symbol": "300620",
-      "pe_ttm": 410.28,
-      "pb": 34.07,
-      "market_cap": 734.185557788
+      "pe_ttm": 329.9062,
+      "pb": 32.2373,
+      "market_cap": 694.6655233500001
     },
     {
       "symbol": "600330",
-      "pe_ttm": -252.98,
-      "pb": 5.46,
-      "market_cap": 423.4380350128
+      "pe_ttm": null,
+      "pb": 5.2049,
+      "market_cap": 403.70308436
     },
     {
       "symbol": "002222",
-      "pe_ttm": 194.25,
-      "pb": 27.73,
-      "market_cap": 506.9295
+      "pe_ttm": 160.8993,
+      "pb": 25.8667,
+      "market_cap": 472.8834
     },
     {
       "symbol": "601138",
-      "pe_ttm": 35.64,
-      "pb": 8.57,
-      "market_cap": 15105.323046580801
+      "pe_ttm": 35.832,
+      "pb": 8.2656,
+      "market_cap": 14565.56373646
     },
     {
       "symbol": "000977",
-      "pe_ttm": 40.29,
-      "pb": 4.38,
-      "market_cap": 974.9216512544999
+      "pe_ttm": 37.1448,
+      "pb": 4.2667,
+      "market_cap": 949.0764621300001
     },
     {
       "symbol": "603019",
-      "pe_ttm": 147.86,
-      "pb": 6.13,
-      "market_cap": 1347.5296370639999
+      "pe_ttm": 58.2036,
+      "pb": 5.7225,
+      "market_cap": 1290.76074464
     },
     {
       "symbol": "000938",
-      "pe_ttm": 26.08,
-      "pb": 5.29,
-      "market_cap": 821.9869557876
+      "pe_ttm": 38.5492,
+      "pb": 5.2754,
+      "market_cap": 819.1268759100001
     },
     {
       "symbol": "301018",
-      "pe_ttm": 360.13,
-      "pb": 15.07,
-      "market_cap": 407.75278511280004
+      "pe_ttm": 200.6327,
+      "pb": 13.8218,
+      "market_cap": 383.10368546
     },
     {
       "symbol": "300499",
-      "pe_ttm": 209.72,
-      "pb": 9.12,
-      "market_cap": 127.01392748039999
+      "pe_ttm": 381.8984,
+      "pb": 8.3744,
+      "market_cap": 116.60495145
     },
     {
       "symbol": "300602",
-      "pe_ttm": 67.9024,
-      "pb": 6.339,
-      "market_cap": 260.84937612
+      "pe_ttm": 68.6143,
+      "pb": 6.4055,
+      "market_cap": 263.58413423999997
     },
     {
       "symbol": "600900",
-      "pe_ttm": 24.59,
-      "pb": 2.92,
-      "market_cap": 6650.4615752088
+      "pe_ttm": 18.8175,
+      "pb": 2.9793,
+      "market_cap": 6789.93041619
     },
     {
       "symbol": "003816",
-      "pe_ttm": 20.68,
-      "pb": 1.8,
-      "market_cap": 2267.3953679699002
+      "pe_ttm": 24.3957,
+      "pb": 1.8375,
+      "market_cap": 2312.8442729
     },
     {
       "symbol": "600886",
-      "pe_ttm": 13.09,
-      "pb": 1.61,
-      "market_cap": 1108.6224552869999
+      "pe_ttm": 15.3991,
+      "pb": 1.6585,
+      "market_cap": 1144.64267947
     },
     {
       "symbol": "600011",
-      "pe_ttm": 7.05,
-      "pb": 1.81,
-      "market_cap": 1265.2663247354
+      "pe_ttm": 10.0025,
+      "pb": 1.9875,
+      "market_cap": 1392.42088094
     },
     {
       "symbol": "300383",
-      "pe_ttm": 291.86,
-      "pb": 2.22,
-      "market_cap": 262.2687963773
+      "pe_ttm": null,
+      "pb": 2.0755,
+      "market_cap": 245.5511829
     },
     {
       "symbol": "603881",
-      "pe_ttm": 186.935,
-      "pb": 7.7473,
-      "market_cap": 260.69901294
+      "pe_ttm": 182.3505,
+      "pb": 7.5573,
+      "market_cap": 254.30545765
     },
     {
       "symbol": "300738",
-      "pe_ttm": 61.62,
-      "pb": 5.95,
-      "market_cap": 228.564205048
+      "pe_ttm": 123.6887,
+      "pb": 5.5058,
+      "market_cap": 214.37746129
     },
     {
       "symbol": "002335",
-      "pe_ttm": 100.1,
-      "pb": 5.01,
-      "market_cap": 312.34090884600005
+      "pe_ttm": 68.3558,
+      "pb": 4.685,
+      "market_cap": 291.91505022999996
     },
     {
       "symbol": "603290",
-      "pe_ttm": 321.86,
-      "pb": 4.92,
-      "market_cap": 342.806266579
+      "pe_ttm": 93.9195,
+      "pb": 4.4256,
+      "market_cap": 308.20235074
     },
     {
       "symbol": "688187",
-      "pe_ttm": 32.47,
-      "pb": 1.94,
-      "market_cap": 835.57574344
+      "pe_ttm": 20.0091,
+      "pb": 1.9059,
+      "market_cap": 822.09871532
     },
     {
       "symbol": "688711",
-      "pe_ttm": 467.3117,
-      "pb": 7.5284,
-      "market_cap": 79.1639856
+      "pe_ttm": 426.4298,
+      "pb": 6.8698,
+      "market_cap": 72.23846868999999
     },
     {
       "symbol": "605111",
-      "pe_ttm": 76.11,
-      "pb": 6.63,
-      "market_cap": 287.825468931
+      "pe_ttm": 72.8216,
+      "pb": 6.3719,
+      "market_cap": 276.65302288000004
     },
     {
       "symbol": "600460",
-      "pe_ttm": 77.05,
-      "pb": 5.28,
-      "market_cap": 643.662989646
+      "pe_ttm": 125.4885,
+      "pb": 4.7206,
+      "market_cap": 575.76885837
     },
     {
       "symbol": "688396",
-      "pe_ttm": 70.16,
-      "pb": 4,
-      "market_cap": 926.161307164
+      "pe_ttm": 93.8193,
+      "pb": 3.6775,
+      "market_cap": 851.25022481
     },
     {
       "symbol": "600745",
       "pe_ttm": null,
-      "pb": 1.0207,
-      "market_cap": 233.37565913
+      "pb": 1.1252,
+      "market_cap": 257.27332662
     },
     {
       "symbol": "603986",
-      "pe_ttm": 58.75,
-      "pb": 13.88,
-      "market_cap": 3434.0699152431
+      "pe_ttm": 113.9001,
+      "pb": 13.2303,
+      "market_cap": 3274.21855642
     },
     {
       "symbol": "688008",
-      "pe_ttm": 94.75,
-      "pb": 15.41,
-      "market_cap": 3211.6972151837995
+      "pe_ttm": 120.9002,
+      "pb": 14.8336,
+      "market_cap": 3092.16605313
     },
     {
       "symbol": "300223",
-      "pe_ttm": 60.53,
-      "pb": 6.11,
-      "market_cap": 772.2581730892
+      "pe_ttm": 122.2933,
+      "pb": 6.0097,
+      "market_cap": 759.80862244
     },
     {
       "symbol": "301308",
-      "pe_ttm": 42.9173,
-      "pb": 18.9333,
-      "market_cap": 2333.56220851
+      "pe_ttm": 42.8939,
+      "pb": 18.923,
+      "market_cap": 2332.29302549
     },
     {
       "symbol": "002156",
-      "pe_ttm": 75.0417,
-      "pb": 6.9316,
-      "market_cap": 1085.3853114600001
+      "pe_ttm": 69.2499,
+      "pb": 6.4472,
+      "market_cap": 1001.6139619200001
     },
     {
       "symbol": "600584",
-      "pe_ttm": 93.3185,
-      "pb": 5.3597,
-      "market_cap": 1541.75959351
+      "pe_ttm": 88.8671,
+      "pb": 5.104,
+      "market_cap": 1468.21465469
     },
     {
       "symbol": "002185",
-      "pe_ttm": 80.6904,
-      "pb": 3.6739,
-      "market_cap": 658.2911665199999
+      "pe_ttm": 77.4467,
+      "pb": 3.5262,
+      "market_cap": 631.82884171
     },
     {
       "symbol": "002371",
-      "pe_ttm": 85.1142,
-      "pb": 12.078,
-      "market_cap": 4745.98651978
+      "pe_ttm": 81.8774,
+      "pb": 11.6187,
+      "market_cap": 4565.5031984
     },
     {
       "symbol": "688012",
-      "pe_ttm": 104.8614,
-      "pb": 11.7015,
-      "market_cap": 2861.54065652
+      "pe_ttm": 102.2098,
+      "pb": 11.5092,
+      "market_cap": 2789.1811877
     },
     {
       "symbol": "688072",
-      "pe_ttm": 114.6756,
-      "pb": 26.0177,
-      "market_cap": 1885.56239004
+      "pe_ttm": 107.9687,
+      "pb": 24.4961,
+      "market_cap": 1775.28384606
     },
     {
       "symbol": "688126",
       "pe_ttm": null,
-      "pb": 5.5113,
-      "market_cap": 927.7200664200001
+      "pb": 5.4386,
+      "market_cap": 915.4914798599999
     },
     {
       "symbol": "300476",
-      "pe_ttm": 79.6557,
-      "pb": 10.4407,
-      "market_cap": 3727.7027957099995
+      "pe_ttm": 77.3918,
+      "pb": 10.144,
+      "market_cap": 3621.75859287
     },
     {
       "symbol": "002463",
-      "pe_ttm": 57.3875,
-      "pb": 15.5978,
-      "market_cap": 2468.76598162
+      "pe_ttm": 59.065,
+      "pb": 16.0537,
+      "market_cap": 2540.9296142499998
     },
     {
       "symbol": "002916",
-      "pe_ttm": 74.226,
-      "pb": 14.9126,
-      "market_cap": 2697.7602995
+      "pe_ttm": 77.1047,
+      "pb": 17.0299,
+      "market_cap": 2802.38748849
     },
     {
       "symbol": "002938",
-      "pe_ttm": 66.1305,
-      "pb": 7.0853,
-      "market_cap": 2455.04783105
+      "pe_ttm": 65.5686,
+      "pb": 7.0251,
+      "market_cap": 2434.1853719
     },
     {
       "symbol": "600183",
-      "pe_ttm": 81.4726,
-      "pb": 17.8528,
-      "market_cap": 3200.60749745
+      "pe_ttm": 86.9511,
+      "pb": 19.0533,
+      "market_cap": 3415.82746123
     },
     {
       "symbol": "002436",
-      "pe_ttm": 435.9941,
-      "pb": 11.7891,
-      "market_cap": 629.21915302
+      "pe_ttm": 455.5443,
+      "pb": 12.4364,
+      "market_cap": 657.43373417
     },
     {
       "symbol": "688261",
-      "pe_ttm": 260.6377,
-      "pb": 3.8869,
-      "market_cap": 114.58308663000001
+      "pe_ttm": 260.7771,
+      "pb": 3.889,
+      "market_cap": 114.64437412000001
     },
     {
       "symbol": "688019",
-      "pe_ttm": 66.5689,
-      "pb": 11.9322,
-      "market_cap": 547.5224661999999
+      "pe_ttm": 60.4732,
+      "pb": 10.8396,
+      "market_cap": 497.38657175000003
     },
     {
       "symbol": "002409",
-      "pe_ttm": 55.9776,
-      "pb": 6.9563,
-      "market_cap": 563.54596352
+      "pe_ttm": 50.9003,
+      "pb": 6.3254,
+      "market_cap": 512.4313309
     },
     {
       "symbol": "688981",
-      "pe_ttm": 229.38,
-      "pb": 8.34,
-      "market_cap": 12489.326732386602
+      "pe_ttm": 222.1994,
+      "pb": 7.4838,
+      "market_cap": 11211.22612042
     },
     {
       "symbol": "600941",
-      "pe_ttm": 15.5699,
-      "pb": 1.4862,
-      "market_cap": 21144.81937639
+      "pe_ttm": 15.8124,
+      "pb": 1.5093,
+      "market_cap": 21474.19143472
     },
     {
       "symbol": "601728",
-      "pe_ttm": 17.2205,
-      "pb": 1.1645,
-      "market_cap": 5453.82546646
+      "pe_ttm": 17.4805,
+      "pb": 1.1821,
+      "market_cap": 5536.18189129
     },
     {
       "symbol": "688082",
-      "pe_ttm": 92.7564,
-      "pb": 8.4521,
-      "market_cap": 1163.05802049
+      "pe_ttm": 88.1532,
+      "pb": 8.0326,
+      "market_cap": 1105.33945649
     },
     {
       "symbol": "300346",
-      "pe_ttm": 111.5307,
-      "pb": 11.4064,
-      "market_cap": 388.56841087000004
+      "pe_ttm": 102.2464,
+      "pb": 10.4569,
+      "market_cap": 356.22226781
     },
     {
       "symbol": "000021",
-      "pe_ttm": 57.7487,
-      "pb": 5.1822,
-      "market_cap": 692.36508068
+      "pe_ttm": 52.2469,
+      "pb": 4.6885,
+      "market_cap": 626.40305958
     },
     {
       "symbol": "002475",
-      "pe_ttm": 30.2979,
-      "pb": 5.9045,
-      "market_cap": 5216.03752559
+      "pe_ttm": 31.0174,
+      "pb": 6.0447,
+      "market_cap": 5339.89929111
     }
   ],
   "signals": [
@@ -398,455 +398,455 @@
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "PE极高且利润增速缺失，价格高位震荡，估值压力大，观望。"
+      "rationale": "PE极高但中期趋势仍向上，近期回调未破20日线，暂观望。"
     },
     {
       "symbol": "688041",
-      "action": "hold",
-      "confidence": 0.5,
+      "action": "sell",
+      "confidence": 0.7,
       "size": 0,
-      "rationale": "PE极高，利润增速缺失，价格从高点回落，估值与动量均承压。"
+      "rationale": "PE极度高估，股价跌破20日均线且趋势走弱，建议卖出。"
     },
     {
       "symbol": "688047",
       "action": "sell",
-      "confidence": 0.7,
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "亏损且价格持续下跌，基本面恶化，主题景气度亦难支撑，卖出。"
+      "rationale": "亏损且PE为负，股价跌破均线并回落，景气度存疑，卖出。"
     },
     {
       "symbol": "300474",
       "action": "sell",
-      "confidence": 0.7,
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "亏损且价格弱势，无利润增速，主题景气度传导弱，卖出。"
+      "rationale": "PE为负，股价下跌趋势破位，无基本面支撑，建议卖出。"
     },
     {
       "symbol": "002049",
-      "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，价格放量突破近期平台，算力芯片需求景气，积极买入。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE合理，股价回踩但仍站于均线上方，短期整理，暂持。"
     },
     {
       "symbol": "688385",
-      "action": "hold",
-      "confidence": 0.4,
+      "action": "sell",
+      "confidence": 0.7,
       "size": 0,
-      "rationale": "PE较高，价格下行趋势未改，缺乏利润增速支撑，观望。"
+      "rationale": "PE极高，股价连续下跌破关键均线，无景气支撑，卖出。"
     },
     {
       "symbol": "300308",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，光模块需求旺盛，价格连续新高，动量极强，加仓。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "光模块景气度高，PE虽高但股价创新高后回踩支撑，动能强。"
     },
     {
       "symbol": "300502",
       "action": "buy",
       "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE适中，光模块龙头，价格沿均线强势上攻，趋势明确。"
+      "size": 0.2,
+      "rationale": "光模块需求旺盛，PE相对合理，趋势强劲突破新高，买入。"
     },
     {
       "symbol": "300394",
       "action": "buy",
-      "confidence": 0.6,
-      "size": 0.5,
-      "rationale": "PE高但光模块景气度高，价格创阶段新高，高增速可消化估值。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "PE较高但主题景气度高，股价强势突破均线，动量足，轻仓。"
     },
     {
       "symbol": "000988",
-      "action": "buy",
-      "confidence": 0.7,
-      "size": 0.6,
-      "rationale": "PE合理，光模块补涨，价格放量突破前高，景气度传导。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE偏高，短期回调但中期趋势完好，等待企稳再动。"
     },
     {
       "symbol": "002281",
-      "action": "buy",
-      "confidence": 0.6,
-      "size": 0.5,
-      "rationale": "PE高但光模块弹性大，价格沿5日线陡峭上涨，短线强势。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE较高，近期冲高回落，但未破中期均线，谨慎持有。"
     },
     {
       "symbol": "603083",
-      "action": "buy",
+      "action": "hold",
       "confidence": 0.5,
-      "size": 0.4,
-      "rationale": "PE高，光模块低位突破，价格波动大，轻仓跟随。"
+      "size": 0,
+      "rationale": "PE极高，股价高位震荡，趋势不明，观望为宜。"
     },
     {
       "symbol": "301205",
-      "action": "sell",
-      "confidence": 0.8,
-      "size": 0,
-      "rationale": "PE极大，利润不可持续，价格弱势震荡，基本面极差。"
+      "action": "buy",
+      "confidence": 0.6,
+      "size": 0.1,
+      "rationale": "光模块需求爆发，股价放量突破，但PE极高，轻仓试多。"
     },
     {
       "symbol": "300620",
-      "action": "sell",
-      "confidence": 0.7,
+      "action": "hold",
+      "confidence": 0.5,
       "size": 0,
-      "rationale": "PE极高，价格区间震荡，缺乏利润增速支撑，卖出。"
+      "rationale": "PE极高，快速上涨后回调，波动大，观望。"
     },
     {
       "symbol": "600330",
-      "action": "sell",
-      "confidence": 0.7,
+      "action": "hold",
+      "confidence": 0.5,
       "size": 0,
-      "rationale": "亏损股，近期暴涨属题材炒作，基本面极差，不建议参与。"
+      "rationale": "PE为负，半导体材料景气回升，股价上涨后横盘，暂持。"
     },
     {
       "symbol": "002222",
       "action": "hold",
-      "confidence": 0.4,
+      "confidence": 0.5,
       "size": 0,
-      "rationale": "PE高，价格从高位回落，震荡格局，等待方向。"
+      "rationale": "PE偏高，股价震荡，中期均线走平，无明确方向。"
     },
     {
       "symbol": "601138",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE低，AI服务器龙头，价格蓄势突破，业绩确定性高。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "PE合理，AI服务器龙头，股价沿均线上行，趋势强劲，买入。"
     },
     {
       "symbol": "000977",
-      "action": "sell",
-      "confidence": 0.6,
+      "action": "hold",
+      "confidence": 0.4,
       "size": 0,
-      "rationale": "PE合理但价格阴跌，短线均线空头排列，回避。"
+      "rationale": "PE适中，但股价连续阴跌跌破均线，短期观望。"
     },
     {
       "symbol": "603019",
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "PE高，价格震荡无趋势，等待算力订单进一步催化。"
+      "rationale": "PE略高，股价区间震荡，方向不明，持有。"
     },
     {
       "symbol": "000938",
-      "action": "buy",
+      "action": "hold",
       "confidence": 0.4,
-      "size": 0.3,
-      "rationale": "PE极低，价格磨底，安全边际高，可左侧试探性买入。"
+      "size": 0,
+      "rationale": "PE合理，但趋势转弱，谨慎持有。"
     },
     {
       "symbol": "301018",
-      "action": "buy",
-      "confidence": 0.6,
-      "size": 0.5,
-      "rationale": "液冷主题强催化，价格强势突破，PE虽高但趋势动量足。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE高，液冷概念，大幅波动后回稳，暂持观察。"
     },
     {
       "symbol": "300499",
-      "action": "hold",
-      "confidence": 0.4,
+      "action": "sell",
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "PE高，价格震荡，液冷逻辑好但尚未形成趋势，观望。"
+      "rationale": "PE极高，股价下跌趋势明显，无景气支撑，卖出。"
     },
     {
       "symbol": "300602",
-      "action": "buy",
-      "confidence": 0.7,
-      "size": 0.6,
-      "rationale": "PE合理，液冷散热需求增长，价格沿均线稳步上行。"
+      "action": "hold",
+      "confidence": 0.6,
+      "size": 0,
+      "rationale": "PE中等，液冷需求增长，股价上升趋势延续，持有。"
     },
     {
       "symbol": "600900",
-      "action": "hold",
-      "confidence": 0.6,
-      "size": 0,
-      "rationale": "PE低，防御品种，电价稳增但缺乏爆发力，持有观望。"
+      "action": "buy",
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "PE低，绿电龙头，防御属性强，稳步上涨，可配置。"
     },
     {
       "symbol": "003816",
-      "action": "hold",
-      "confidence": 0.6,
-      "size": 0,
-      "rationale": "PE低，核电受益AI用电需求，但股价波动小，持有。"
+      "action": "buy",
+      "confidence": 0.65,
+      "size": 0.15,
+      "rationale": "PE合理，核电主题，股价温和上扬，股息稳定，买入。"
     },
     {
       "symbol": "600886",
       "action": "buy",
-      "confidence": 0.5,
-      "size": 0.4,
-      "rationale": "PE极低，水电资产优质，绿电需求长线，低吸配置。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "PE低，电力股估值优势，趋势向上突破，买入。"
     },
     {
       "symbol": "600011",
       "action": "buy",
-      "confidence": 0.7,
-      "size": 0.6,
-      "rationale": "PE极低，火绿电转型，价格稳步抬升，估值修复。"
+      "confidence": 0.75,
+      "size": 0.2,
+      "rationale": "PE低，绿电转型受益，股价放量突破，上涨动能足。"
     },
     {
       "symbol": "300383",
       "action": "sell",
       "confidence": 0.7,
       "size": 0,
-      "rationale": "PE极高，IDC需求未体现在业绩，股价持续阴跌，卖出。"
+      "rationale": "PE为负，IDC需求未见起色，股价持续下跌，卖出。"
     },
     {
       "symbol": "603881",
       "action": "sell",
-      "confidence": 0.7,
+      "confidence": 0.65,
       "size": 0,
-      "rationale": "PE高，IDC价格破位下行，基本面支撑弱，回避。"
+      "rationale": "PE极高，股价阴跌不止，数据中心景气走弱，卖出。"
     },
     {
       "symbol": "300738",
-      "action": "hold",
-      "confidence": 0.4,
+      "action": "sell",
+      "confidence": 0.7,
       "size": 0,
-      "rationale": "PE合理，但价格重心下移，暂无明显催化，观望。"
+      "rationale": "PE偏高，股价破位下行，无业绩支撑，卖出。"
     },
     {
       "symbol": "002335",
-      "action": "hold",
-      "confidence": 0.5,
+      "action": "sell",
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "PE高，价格区间震荡，IDC+储能概念，等待突破。"
+      "rationale": "PE适中，但趋势走坏破均线，建议减仓。"
     },
     {
       "symbol": "603290",
-      "action": "buy",
-      "confidence": 0.4,
-      "size": 0.3,
-      "rationale": "PE极高但功率半导体涨价预期强，价格放量突破，轻仓。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE偏高，功率半导体景气，股价回调未破趋势，暂持。"
     },
     {
       "symbol": "688187",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE低，轨交与新能源功率器件龙头，价格突破后加速。"
+      "confidence": 0.7,
+      "size": 0.2,
+      "rationale": "PE低，功率半导体需求回升，股价突破均线走强，买入。"
     },
     {
       "symbol": "688711",
       "action": "sell",
-      "confidence": 0.7,
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "PE极高，利润薄，股价跟风上涨但持续性存疑，卖出。"
+      "rationale": "PE极高，股价冲高回落，基本面薄弱，卖出。"
     },
     {
       "symbol": "605111",
-      "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，MOSFET景气周期，价格主升浪，趋势明确。"
+      "action": "hold",
+      "confidence": 0.6,
+      "size": 0,
+      "rationale": "PE适中，功率半导体高景气，股价强势后整理，持有。"
     },
     {
       "symbol": "600460",
-      "action": "buy",
-      "confidence": 0.6,
-      "size": 0.5,
-      "rationale": "PE较高，IDM模式受益国产替代，价格突破年线。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE较高，股价震荡上行但波动加大，中性持有。"
     },
     {
       "symbol": "688396",
-      "action": "buy",
-      "confidence": 0.7,
-      "size": 0.7,
-      "rationale": "PE合理，功率半导体龙头，价格稳步上攻，均线多头发散。"
+      "action": "hold",
+      "confidence": 0.55,
+      "size": 0,
+      "rationale": "PE偏高，股价温和上涨，但量能一般，观望。"
     },
     {
       "symbol": "600745",
       "action": "sell",
-      "confidence": 0.8,
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "持续亏损，股价单边下跌，基本面极弱，回避。"
+      "rationale": "亏损且PE为负，基本面恶化，股价长期下跌，卖出。"
     },
     {
       "symbol": "603986",
       "action": "buy",
-      "confidence": 1,
-      "size": 0.9,
-      "rationale": "PE合理，存储/HBM景气高峰，价格屡创新高，强力买入。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "存储HBM需求旺盛，PE虽高但利润增速预期强，趋势加速。"
     },
     {
       "symbol": "688008",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE虽高但DDR5接口芯片龙头，价格强势，景气度极高。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "HBM相关，景气高涨，股价沿均线攀升，买入。"
     },
     {
       "symbol": "300223",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，存储芯片需求旺盛，价格突破长期平台，主升。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "存储涨价周期，PE略高但趋势良好，可介入。"
     },
     {
       "symbol": "301308",
       "action": "buy",
-      "confidence": 1,
-      "size": 0.9,
-      "rationale": "PE低，存储模组龙头，业绩爆发，价格加速上行。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "存储龙头，PE相对合理，业绩爆发期，股价主升浪。"
     },
     {
       "symbol": "002156",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，先进封装受益HBM，价格量价齐升，趋势强劲。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "先进封装受益HBM，PE适中，股价强势突破，买入。"
     },
     {
       "symbol": "600584",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE较高但封测龙头，存储封测需求确定，价格突破。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "封测龙头，PE略高但景气复苏，股价创新高，看多。"
     },
     {
       "symbol": "002185",
-      "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，封测景气度回升，价格底部放量起涨。"
+      "action": "hold",
+      "confidence": 0.6,
+      "size": 0,
+      "rationale": "PE适中，股价大涨后回踩，短期消化，中期看好，暂持。"
     },
     {
       "symbol": "002371",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，半导体设备龙头，订单饱满，价格沿5周线攀升。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "半导体设备龙头，PE略高但订单饱满，回调是介入机会。"
     },
     {
       "symbol": "688012",
-      "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE较高但刻蚀设备龙头，国产替代强逻辑，趋势良好。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE偏高，股价高位震荡，等待新的催化剂。"
     },
     {
       "symbol": "688072",
-      "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE高但薄膜沉积设备稀缺，价格强势，高增长消化估值。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE较高，但设备需求旺盛，股价强后整理，持有。"
     },
     {
       "symbol": "688126",
-      "action": "buy",
-      "confidence": 0.4,
-      "size": 0.3,
-      "rationale": "亏损但大硅片国产替代主题强，价格放量突破，轻仓投机。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE为负，半导体材料，股价冲高回落，观望。"
     },
     {
       "symbol": "300476",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，AI服务器PCB核心供应商，价格强势突破。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "AI-PCB需求爆发，PE合理，股价沿均线上行，买入。"
     },
     {
       "symbol": "002463",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.9,
-      "rationale": "PE低，AI-PCB龙头，业绩弹性大，价格主升浪。"
+      "confidence": 0.8,
+      "size": 0.2,
+      "rationale": "PCB龙头，AI服务器拉动，PE适中，趋势强劲。"
     },
     {
       "symbol": "002916",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，高频高速PCB龙头，价格创历史新高。"
+      "confidence": 0.75,
+      "size": 0.2,
+      "rationale": "高阶PCB受益AI，PE略高但增速快，股价主升浪。"
     },
     {
       "symbol": "002938",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，FPC受益AI终端，价格突破后回踩确认，买入。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "PCB景气回暖，PE合理，股价稳步攀升，买入。"
     },
     {
       "symbol": "600183",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE合理，覆铜板龙头，涨价周期+AI需求，价格加速。"
+      "confidence": 0.75,
+      "size": 0.2,
+      "rationale": "覆铜板景气，PE略高但涨价周期，趋势延续。"
     },
     {
       "symbol": "002436",
       "action": "sell",
-      "confidence": 0.8,
+      "confidence": 0.6,
       "size": 0,
-      "rationale": "PE极高，PCB打样公司，估值泡沫，上涨缺乏业绩支撑。"
+      "rationale": "PE极高，股价反弹后面临阻力，基本面薄弱，卖出。"
     },
     {
       "symbol": "688261",
-      "action": "sell",
-      "confidence": 0.7,
+      "action": "hold",
+      "confidence": 0.4,
       "size": 0,
-      "rationale": "PE极高，功率半导体竞争激烈，价格跟涨但基本面弱。"
+      "rationale": "PE极高，功率半导体波动大，短期无方向，谨慎。"
     },
     {
       "symbol": "688019",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，CMP抛光液龙头，国产替代加速，价格突破。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "抛光液龙头，PE合理，股价突破后回踩，趋势向上。"
     },
     {
       "symbol": "002409",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE低，半导体材料平台，前驱体需求爆发，价格强势。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "半导体材料，PE适中，股价强势上涨，景气驱动。"
     },
     {
       "symbol": "688981",
-      "action": "buy",
-      "confidence": 0.6,
-      "size": 0.5,
-      "rationale": "PE极高但代工龙头，先进制程稀缺，价格放量突破，轻仓。"
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "PE极高，晶圆代工扩产中，股价冲高回落，观望。"
     },
     {
       "symbol": "600941",
       "action": "buy",
-      "confidence": 0.5,
-      "size": 0.4,
-      "rationale": "PE低，云/AI基建底座，稳定增长，价格慢牛可配置。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "低PE蓝筹，算力网络基建，稳健上行，分红稳定。"
     },
     {
       "symbol": "601728",
       "action": "buy",
-      "confidence": 0.4,
-      "size": 0.3,
-      "rationale": "PE低，云网融合，数字基建受益，价格底部企稳。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "PE低，云业务增长，股价突破平台，配置价值高。"
     },
     {
       "symbol": "688082",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE合理，清洗设备龙头，价格强势突破，订单能见度高。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "半导体清洗设备，PE略高但景气度高，趋势延续。"
     },
     {
       "symbol": "300346",
-      "action": "buy",
-      "confidence": 0.5,
-      "size": 0.4,
-      "rationale": "PE较高，前驱体/MO源国产替代，价格震荡走高，可参与。"
+      "action": "sell",
+      "confidence": 0.6,
+      "size": 0,
+      "rationale": "PE偏高，股价破位下行，短期无反转迹象，卖出。"
     },
     {
       "symbol": "000021",
       "action": "buy",
-      "confidence": 0.9,
-      "size": 0.8,
-      "rationale": "PE低，存储封测+EMS，价格放量突破，业绩反转确定。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "存储封测，PE合理，受益HBM扩产，股价突破。"
     },
     {
       "symbol": "002475",
       "action": "buy",
-      "confidence": 0.8,
-      "size": 0.7,
-      "rationale": "PE低，消费电子/AI服务器连接器，价格趋势向上，估值安全。"
+      "confidence": 0.7,
+      "size": 0.15,
+      "rationale": "AI服务器连接器，PE合理，股价沿均线上攻，看好。"
     }
   ]
 }
