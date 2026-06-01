@@ -1,0 +1,43 @@
+# ---- Build stage: compile Next.js + native addons ----
+FROM node:22-slim AS build
+
+# better-sqlite3 needs build tools for native addon compilation
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      python3 make gcc g++ && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install dependencies first (layer caching)
+COPY web/package.json web/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+
+# Copy source and build
+COPY web/ ./
+RUN npm run build
+
+# ---- Runtime stage: minimal production image ----
+FROM node:22-slim AS runtime
+
+WORKDIR /app
+
+# Copy Next.js standalone output (includes server.js + minimal node_modules)
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+
+# Copy data directory (universe.json is read/written at runtime)
+COPY --from=build /app/data ./data
+
+# Create writable cache directory for better-sqlite3 (web.db)
+# and ensure data/ is writable for universe-refresh API
+RUN mkdir -p /app/.cache && \
+    chown -R node:node /app/.cache /app/data
+
+EXPOSE 3000
+
+ENV HOSTNAME=0.0.0.0
+
+USER node
+
+CMD ["node", "server.js"]

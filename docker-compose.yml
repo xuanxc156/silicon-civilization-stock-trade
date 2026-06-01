@@ -1,0 +1,116 @@
+# ===================================================================
+# 硅基文明消费股 — Docker Compose (本地开发 + NAS 部署)
+# ===================================================================
+#
+# === 本地开发 ===
+#   cp .env.docker.example .env
+#   编辑 .env 填入 TUSHARE_TOKEN / DEEPSEEK_API_KEY
+#   docker compose up -d
+#   打开 http://localhost:3000
+#
+# === NAS 部署 (推荐: 开发机构建 → 导出 → NAS 导入) ===
+#
+#   开发机上 (一键脚本):
+#     bash scripts/docker-export.sh
+#
+#   或手动:
+#     docker compose build
+#     docker save scs-pyserver scs-web -o scs-images.tar
+#
+#   将以下文件复制到 NAS 同一目录:
+#     scs-images.tar  docker-compose.yml  .env
+#
+#   NAS 上:
+#     docker load -i scs-images.tar
+#     mkdir -p /volume1/docker/scs/{pyserver,web/cache,web/data}
+#     chmod -R 755 /volume1/docker/scs
+#     NAS_DATA_PATH=/volume1/docker/scs docker compose up -d
+#
+# === 如果必须直接在 NAS 上构建 (内存 <4G 时使用 pip 模式) ===
+#
+#   pyserver (用 pip 替代 uv, 降低内存占用):
+#     docker compose build --build-arg INSTALLER=pip pyserver
+#
+#   web (需要编译工具 gcc/make):
+#     docker compose build web
+#
+#   启动:
+#     NAS_DATA_PATH=/volume1/docker/scs docker compose up -d
+#
+# === 绿联 NAS 注意事项 ===
+#   - 如果 uv sync 卡死: 使用预构建镜像导入, 或加 --build-arg INSTALLER=pip
+#   - 文件权限问题: web 服务已设 user: "0:0" (root 运行)
+#   - 资源限制会根据 .env 中的 PYSERVER_MEM_LIMIT / WEB_MEM_LIMIT 调整
+#
+# === 环境变量 ===
+#   必填: TUSHARE_TOKEN, DEEPSEEK_API_KEY
+#   可选: 见 .env.docker.example
+# ===================================================================
+
+services:
+  # ---- Python 市场数据 sidecar (FastAPI :8001) ----
+  pyserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.pyserver
+      args:
+        # 国内 NAS 用清华镜像: 在 .env 中设 PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    # 使用预构建镜像时取消下面注释 (NAS 导入镜像后)
+    # image: scs-pyserver:latest
+    container_name: scs-pyserver
+    ports:
+      - "${PY_PORT:-8001}:8001"
+    environment:
+      - TUSHARE_TOKEN=${TUSHARE_TOKEN:?TUSHARE_TOKEN is required}
+      # 将 SQLite 缓存写入持久化卷, 避免容器重建后丢失
+      - CACHE_DB_PATH=/data/cache.db
+    volumes:
+      - ${NAS_DATA_PATH:-./nas-data}/pyserver:/data
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # === 资源限制 (根据 NAS 性能调整) ===
+    # 双核 2GB NAS → mem_limit: 512m, cpus: 1.0
+    # 四核 8GB NAS → mem_limit: 1g,   cpus: 2.0
+    mem_limit: ${PYSERVER_MEM_LIMIT:-1g}
+    cpus: ${PYSERVER_CPUS:-1.0}
+
+  # ---- Next.js Web 前端 (:3000) ----
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    # 使用预构建镜像时取消下面注释 (NAS 导入镜像后)
+    # image: scs-web:latest
+    container_name: scs-web
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:?DEEPSEEK_API_KEY is required}
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL:-deepseek-v4-pro}
+      - DEEPSEEK_MODEL_BACKTEST=${DEEPSEEK_MODEL_BACKTEST:-deepseek-v4-flash}
+      # Docker DNS 自动将服务名 "pyserver" 解析为容器 IP
+      - PYSERVER_URL=${PYSERVER_URL:-http://pyserver:8001}
+      - PYSERVER_TIMEOUT_MS=${PYSERVER_TIMEOUT_MS:-180000}
+    volumes:
+      # 持久化运行时数据 (回测结果、DeepSeek 缓存、universe.json)
+      - ${NAS_DATA_PATH:-./nas-data}/web/cache:/app/.cache
+      - ${NAS_DATA_PATH:-./nas-data}/web/data:/app/data
+    # NAS 以 root 运行, 避免文件权限问题 (绿联/群晖共享文件夹 UID 映射)
+    user: "0:0"
+    depends_on:
+      - pyserver
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # === 资源限制 (根据 NAS 性能调整) ===
+    mem_limit: ${WEB_MEM_LIMIT:-1g}
+    cpus: ${WEB_CPUS:-1.0}

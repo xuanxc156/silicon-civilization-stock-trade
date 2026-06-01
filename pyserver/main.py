@@ -45,7 +45,7 @@ if not TUSHARE_TOKEN:
 ts.set_token(TUSHARE_TOKEN)
 _pro = ts.pro_api()
 
-DB_PATH = Path(__file__).parent / "cache.db"
+DB_PATH = Path(os.environ.get("CACHE_DB_PATH", Path(__file__).parent / "cache.db"))
 
 app = FastAPI(title="silicon-civ pyserver", version="0.2.0")
 

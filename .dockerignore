@@ -1,0 +1,40 @@
+# Git
+.git/
+.github/
+
+# IDE / editor
+.vscode/
+.claude/
+.DS_Store
+
+# Dependencies (installed during build)
+node_modules/
+web/node_modules/
+pyserver/.venv/
+pyserver/__pycache__/
+pyserver/*.pyc
+
+# Build artifacts
+web/.next/
+web/.cache/
+
+# Runtime caches & databases
+*.db
+*.db-journal
+pyserver/cache.db*
+
+# Environment files — use docker-compose env vars instead
+.env
+.env.*
+!.env.docker.example
+
+# Static documentation snapshot (not needed for Docker)
+docs/
+
+# Local NAS data directory (only used at runtime)
+nas-data/
+
+# Markdown files (not needed at runtime)
+AGENTS.md
+pyserver/README.md
+web/../README.md
