@@ -1,12 +1,28 @@
 # ---- Build stage: compile Next.js + native addons ----
 FROM node:22-slim AS build
 
+# Chinese mainland NAS: override mirrors in .env or via --build-arg
+#   APT_MIRROR=mirrors.tuna.tsinghua.edu.cn
+#   NPM_REGISTRY=https://registry.npmmirror.com
+ARG APT_MIRROR=deb.debian.org
+ARG NPM_REGISTRY=https://registry.npmjs.org
+
+# Switch apt sources to mirror (for downloading gcc/make/python3)
+RUN if [ "${APT_MIRROR}" != "deb.debian.org" ]; then \
+      sed -i "s|deb.debian.org|${APT_MIRROR}|g" \
+        /etc/apt/sources.list.d/debian.sources \
+        /etc/apt/sources.list 2>/dev/null || true; \
+    fi
+
 # better-sqlite3 needs build tools for native addon compilation
 RUN apt-get update && apt-get install -y --no-install-recommends \
       python3 make gcc g++ && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+# Use npm mirror for faster downloads
+RUN npm config set registry ${NPM_REGISTRY}
 
 # Install dependencies first (layer caching)
 COPY web/package.json web/package-lock.json ./

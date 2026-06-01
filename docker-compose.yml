@@ -84,6 +84,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.web
+      args:
+        # 国内 NAS 用清华镜像: 在 .env 中设 APT_MIRROR=mirrors.tuna.tsinghua.edu.cn
+        APT_MIRROR: ${APT_MIRROR:-deb.debian.org}
+        NPM_REGISTRY: ${NPM_REGISTRY:-https://registry.npmjs.org}
     # 使用预构建镜像时取消下面注释 (NAS 导入镜像后)
     # image: scs-web:latest
     container_name: scs-web
