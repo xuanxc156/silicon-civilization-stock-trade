@@ -135,7 +135,17 @@ class _TokenBucket:
 # Tushare free tier caps hk_daily at 2/minute. Self-throttle to avoid 502s.
 _HK_DAILY_LIMITER = _TokenBucket(n=2, window_s=65)
 _REPORT_RC_LIMITER = _TokenBucket(n=2, window_s=65)
+# Tushare free-tier daily_basic ~500 calls/day; throttle to ~20/min to avoid 429s
+_FUNDAMENTAL_TUSHARE_LIMITER = _TokenBucket(n=10, window_s=60)
 _SPOT_BATCH_CONCURRENCY = int(os.environ.get("SPOT_BATCH_CONCURRENCY", "12"))
+# Cap total concurrent /fundamental and /spot calls so a burst of 50+ requests
+# doesn't exhaust uvicorn's thread pool and cause 502s across the board.
+_FUNDAMENTAL_SEM = threading.Semaphore(
+    int(os.environ.get("FUNDAMENTAL_CONCURRENCY", "6")),
+)
+_SPOT_SEM = threading.Semaphore(
+    int(os.environ.get("SPOT_CONCURRENCY", "8")),
+)
 
 
 def _with_retries(fn, *args, attempts: int = 3, base_delay: float = 0.5, **kwargs):
@@ -427,7 +437,7 @@ def _ak_a_spot_rows(ts_code: str, market: str) -> dict[str, Any] | None:
         "secid": f"{_eastmoney_market_code(market)}.{code}",
     }
     try:
-        response = requests.get(url, params=params, timeout=3)
+        response = requests.get(url, params=params, timeout=10)
         response.raise_for_status()
         data = response.json().get("data")
     except Exception:
@@ -686,55 +696,60 @@ def fundamental(symbol: str):
     if cached is not None:
         return cached
 
-    ts_code, market = _to_ts_code(symbol)
-    out: dict[str, Any] = {"symbol": symbol, "name": _resolve_name(ts_code, market)}
+    with _FUNDAMENTAL_SEM:
+        ts_code, market = _to_ts_code(symbol)
+        out: dict[str, Any] = {"symbol": symbol, "name": _resolve_name(ts_code, market)}
 
-    ak_spot = _ak_a_spot(ts_code, market)
-    if ak_spot is not None:
-        out["name"] = str(ak_spot.get("名称") or out.get("name") or "")
-        pe_ttm = _num_or_none(_ak_col(pd.Series(ak_spot), "市盈率-动态", "市盈率", "PE"))
-        pb = _num_or_none(_ak_col(pd.Series(ak_spot), "市净率", "PB"))
-        market_cap = _market_cap_to_yi(_num_or_none(_ak_col(pd.Series(ak_spot), "总市值")))
-        if pe_ttm is not None:
-            out["pe_ttm"] = pe_ttm
-        if pb is not None:
-            out["pb"] = pb
-        if market_cap is not None:
-            out["market_cap"] = market_cap
-        _attach_profit_yoy(out, ts_code, market)
-        if out.get("pe_ttm") is not None and out.get("pb") is not None and out.get("market_cap") is not None:
-            cache_put(key, out, 24 * 3600 if out.get("profit_yoy") is not None else 30)
+        ak_spot = _ak_a_spot(ts_code, market)
+        if ak_spot is not None:
+            out["name"] = str(ak_spot.get("名称") or out.get("name") or "")
+            pe_ttm = _num_or_none(_ak_col(pd.Series(ak_spot), "市盈率-动态", "市盈率", "PE"))
+            pb = _num_or_none(_ak_col(pd.Series(ak_spot), "市净率", "PB"))
+            market_cap = _market_cap_to_yi(_num_or_none(_ak_col(pd.Series(ak_spot), "总市值")))
+            if pe_ttm is not None:
+                out["pe_ttm"] = pe_ttm
+            if pb is not None:
+                out["pb"] = pb
+            if market_cap is not None:
+                out["market_cap"] = market_cap
+            _attach_profit_yoy(out, ts_code, market)
+            if out.get("pe_ttm") is not None and out.get("pb") is not None and out.get("market_cap") is not None:
+                cache_put(key, out, 24 * 3600 if out.get("profit_yoy") is not None else 30)
+                return out
+
+        try:
+            if market == "hk":
+                # daily_basic is A-share only; for HK we leave fundamentals blank.
+                cache_put(key, out, 24 * 3600)
+                return out
+            _FUNDAMENTAL_TUSHARE_LIMITER.acquire()
+            # Latest trading day's basic metrics. Pull last 5 days then take tail.
+            today = date.today().strftime("%Y%m%d")
+            start = (date.today() - timedelta(days=10)).strftime("%Y%m%d")
+            df = _with_retries(
+                _pro.daily_basic,
+                ts_code=ts_code, start_date=start, end_date=today,
+                fields="ts_code,trade_date,close,pe_ttm,pb,total_mv",
+            )
+        except Exception:
+            # Tushare rate-limited or unreachable — return partial data from
+            # AkShare (if any) instead of failing the whole request with 502.
+            cache_put(key, out, 60)
             return out
 
-    try:
-        if market == "hk":
-            # daily_basic is A-share only; for HK we leave fundamentals blank.
-            cache_put(key, out, 24 * 3600)
-            return out
-        # Latest trading day's basic metrics. Pull last 5 days then take tail.
-        today = date.today().strftime("%Y%m%d")
-        start = (date.today() - timedelta(days=10)).strftime("%Y%m%d")
-        df = _with_retries(
-            _pro.daily_basic,
-            ts_code=ts_code, start_date=start, end_date=today,
-            fields="ts_code,trade_date,close,pe_ttm,pb,total_mv",
-        )
-    except Exception as e:
-        raise HTTPException(502, f"tushare error: {e}") from e
+        if df is not None and not df.empty:
+            latest = df.sort_values("trade_date").iloc[-1]
+            if pd.notna(latest.get("pe_ttm")):
+                out["pe_ttm"] = float(latest["pe_ttm"])
+            if pd.notna(latest.get("pb")):
+                out["pb"] = float(latest["pb"])
+            if pd.notna(latest.get("total_mv")):
+                # tushare returns 万元 -> convert to 亿元
+                out["market_cap"] = float(latest["total_mv"]) / 1e4
+            _attach_profit_yoy(out, ts_code, market)
 
-    if df is not None and not df.empty:
-        latest = df.sort_values("trade_date").iloc[-1]
-        if pd.notna(latest.get("pe_ttm")):
-            out["pe_ttm"] = float(latest["pe_ttm"])
-        if pd.notna(latest.get("pb")):
-            out["pb"] = float(latest["pb"])
-        if pd.notna(latest.get("total_mv")):
-            # tushare returns 万元 -> convert to 亿元
-            out["market_cap"] = float(latest["total_mv"]) / 1e4
-        _attach_profit_yoy(out, ts_code, market)
-
-    cache_put(key, out, 24 * 3600)
-    return out
+        cache_put(key, out, 24 * 3600)
+        return out
 
 
 @app.get("/analyst", response_model=Analyst)
@@ -897,63 +912,86 @@ def spot(symbol: str):
     if cached is not None:
         return cached
 
-    ts_code, market = _to_ts_code(symbol)
-    start = (date.today() - timedelta(days=10)).strftime("%Y%m%d")
-    end = date.today().strftime("%Y%m%d")
-    try:
-        if market in {"sh", "sz", "bj"}:
-            tdx_spot = _tdx_spot(symbol, ts_code, market)
-            if tdx_spot is not None:
-                cache_put(key, tdx_spot, 30)
-                return tdx_spot
-            ak_spot = _ak_a_spot(ts_code, market)
-            price = _spot_price_from_ak(ak_spot) if ak_spot is not None else None
-            if ak_spot is not None and price is not None:
-                out = {
-                    "symbol": symbol,
-                    "name": str(ak_spot.get("名称") or _resolve_name(ts_code, market) or ""),
-                    "price": price,
-                    "change_pct": _spot_change_pct_from_ak(ak_spot) or 0,
-                    "volume": _num_or_none(ak_spot.get("成交量")) or 0,
-                    "turnover": _num_or_none(ak_spot.get("成交额")) or 0,
-                }
-                cache_put(key, out, 30)
-                return out
-        if market == "hk":
-            ak_code = ts_code.split(".")[0]
-            df = _with_retries(
-                ak.stock_hk_hist,
-                symbol=ak_code, period="daily", start_date=start, end_date=end, adjust="",
-            )
-            if df is None or df.empty:
-                raise HTTPException(404, f"symbol {symbol} not found")
-            df = df.rename(columns={
-                "日期": "trade_date", "开盘": "open", "最高": "high",
-                "最低": "low", "收盘": "close", "成交量": "vol",
-                "成交额": "amount", "涨跌幅": "pct_chg",
-            })
-        else:
-            # A-share fallback when the AkShare/Eastmoney realtime quote is
-            # unavailable or too slow.
-            df = _with_retries(_pro.daily, ts_code=ts_code, start_date=start, end_date=end)
-            if df is None or df.empty:
-                raise HTTPException(404, f"symbol {symbol} not found")
-            df = df.sort_values("trade_date")
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(502, f"upstream error: {e}") from e
-    r = df.iloc[-1]
-    out = {
-        "symbol": symbol,
-        "name": _resolve_name(ts_code, market) or "",
-        "price": float(r.get("close", 0) or 0),
-        "change_pct": float(r.get("pct_chg", 0) or 0),
-        "volume": float(r.get("vol", 0) or 0),
-        "turnover": float(r.get("amount", 0) or 0),
-    }
-    cache_put(key, out, 30)
-    return out
+    with _SPOT_SEM:
+        ts_code, market = _to_ts_code(symbol)
+        start = (date.today() - timedelta(days=10)).strftime("%Y%m%d")
+        end = date.today().strftime("%Y%m%d")
+        try:
+            if market in {"sh", "sz", "bj"}:
+                tdx_spot = _tdx_spot(symbol, ts_code, market)
+                if tdx_spot is not None:
+                    cache_put(key, tdx_spot, 30)
+                    return tdx_spot
+                ak_spot = _ak_a_spot(ts_code, market)
+                price = _spot_price_from_ak(ak_spot) if ak_spot is not None else None
+                if ak_spot is not None and price is not None:
+                    out = {
+                        "symbol": symbol,
+                        "name": str(ak_spot.get("名称") or _resolve_name(ts_code, market) or ""),
+                        "price": price,
+                        "change_pct": _spot_change_pct_from_ak(ak_spot) or 0,
+                        "volume": _num_or_none(ak_spot.get("成交量")) or 0,
+                        "turnover": _num_or_none(ak_spot.get("成交额")) or 0,
+                    }
+                    cache_put(key, out, 30)
+                    return out
+            if market == "hk":
+                ak_code = ts_code.split(".")[0]
+                df = _with_retries(
+                    ak.stock_hk_hist,
+                    symbol=ak_code, period="daily", start_date=start, end_date=end, adjust="",
+                )
+                if df is None or df.empty:
+                    raise HTTPException(404, f"symbol {symbol} not found")
+                df = df.rename(columns={
+                    "日期": "trade_date", "开盘": "open", "最高": "high",
+                    "最低": "low", "收盘": "close", "成交量": "vol",
+                    "成交额": "amount", "涨跌幅": "pct_chg",
+                })
+            else:
+                # A-share fallback when the AkShare/Eastmoney realtime quote is
+                # unavailable or too slow.
+                df = _with_retries(_pro.daily, ts_code=ts_code, start_date=start, end_date=end)
+                if df is None or df.empty:
+                    raise HTTPException(404, f"symbol {symbol} not found")
+                df = df.sort_values("trade_date")
+        except HTTPException:
+            raise
+        except Exception:
+            # All upstreams (TDX / AkShare / Tushare) failed — return a stale
+            # cached value if available, otherwise minimal response.  This keeps
+            # the frontend usable during upstream outages.
+            cached_even_stale = None
+            with db() as conn:
+                row = conn.execute(
+                    "SELECT payload FROM cache WHERE key = ?", (key,),
+                ).fetchone()
+            if row:
+                try:
+                    cached_even_stale = json.loads(row[0])
+                except Exception:
+                    pass
+            out = cached_even_stale or {
+                "symbol": symbol,
+                "name": _resolve_name(ts_code, market) or "",
+                "price": 0,
+                "change_pct": 0,
+                "volume": 0,
+                "turnover": 0,
+            }
+            cache_put(key, out, 60)
+            return out
+        r = df.iloc[-1]
+        out = {
+            "symbol": symbol,
+            "name": _resolve_name(ts_code, market) or "",
+            "price": float(r.get("close", 0) or 0),
+            "change_pct": float(r.get("pct_chg", 0) or 0),
+            "volume": float(r.get("vol", 0) or 0),
+            "turnover": float(r.get("amount", 0) or 0),
+        }
+        cache_put(key, out, 30)
+        return out
 
 
 @app.get("/spots")
