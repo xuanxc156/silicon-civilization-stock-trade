@@ -64,6 +64,8 @@ services:
       - TUSHARE_TOKEN=${TUSHARE_TOKEN:?TUSHARE_TOKEN is required}
       # 将 SQLite 缓存写入持久化卷, 避免容器重建后丢失
       - CACHE_DB_PATH=/data/cache.db
+      # 降低并发, 避免 NAS 内存不足时 OOM
+      - SPOT_BATCH_CONCURRENCY=4
     volumes:
       - ${NAS_DATA_PATH:-./nas-data}/pyserver:/data
     restart: always

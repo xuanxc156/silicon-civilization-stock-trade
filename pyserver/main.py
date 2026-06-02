@@ -135,7 +135,7 @@ class _TokenBucket:
 # Tushare free tier caps hk_daily at 2/minute. Self-throttle to avoid 502s.
 _HK_DAILY_LIMITER = _TokenBucket(n=2, window_s=65)
 _REPORT_RC_LIMITER = _TokenBucket(n=2, window_s=65)
-_SPOT_BATCH_CONCURRENCY = 12
+_SPOT_BATCH_CONCURRENCY = int(os.environ.get("SPOT_BATCH_CONCURRENCY", "12"))
 
 
 def _with_retries(fn, *args, attempts: int = 3, base_delay: float = 0.5, **kwargs):
